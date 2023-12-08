@@ -1,36 +1,29 @@
 #include "bloom.h"
-#include "time.h"
-#include <bits/time.h>
 
-#define size 100000
+#define size 50
 
 int main() {
   bool bitarray[size] = { false };
+  char* words[] = {"test", "test2", "math", "dsa",
+                   "bloom", "bonus"}; 
+  int c = 0;
 
-  char words[50000][7];
-  FILE *f = fopen("./data/out", "r");
-  int i = 1;
-  while(i < 50001){
-    fscanf(f, "%s\n", words[i]);
-    i++;
-  }
-  fclose(f);
-   
-  printf("\n");
-
-  struct timespec start, end;
   for (int i = 0; i < sizeof(words)/sizeof(words[0]); i++){
-    clock_gettime(CLOCK_MONOTONIC, &start);
     bloom_insert(bitarray, size, words[i]);
-    clock_gettime(CLOCK_MONOTONIC, &end);
-    long long duration = (end.tv_sec - start.tv_sec) * 1000000000 + (end.tv_nsec - start.tv_nsec);
-    double durationInSec = (double)duration/1000000000;
     printf("Added element: %s\n", words[i]);
-    printf("Estimated time: %.9f\n", durationInSec);
+    c++;
   }
   printf("\n");
 
-  printf("False positive possibility is %f\%\n", bloom_probability(size, i));
 
+  printf("False positive possibility is %f\%\n", bloom_probability(size, c));
+
+  char* checkupWords[] = {"test", "test2", "test3", "sda", "boom", "bones"};
+  for (int i = 0; i < sizeof(checkupWords)/sizeof(checkupWords[0]); i++){
+    if (bloom_lookup(bitarray, size, checkupWords[i]))
+      printf("Word: %s probably in set\n", checkupWords[i]);
+    else
+      printf("Word: %s definetly not in set\n", checkupWords[i]);
+  }
   return 0;
 }
