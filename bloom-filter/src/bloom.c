@@ -6,7 +6,7 @@ void bloom_init() {};
 
 void bloom_insert(bool *bitarray, int arrSize, char *key) {
   if (bloom_lookup(bitarray, arrSize, key))
-    printf("%s is Probably already present", key);
+    printf("%s is Probably already present\n", key);
   else{
     int a = hash1(key, arrSize);
     int b = hash2(key, arrSize);

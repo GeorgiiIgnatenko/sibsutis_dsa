@@ -2,7 +2,7 @@
 #include "time.h"
 #include <bits/time.h>
 
-#define size 100000
+#define size 500000
 
 int main() {
   bool bitarray[size] = { false };
@@ -18,6 +18,8 @@ int main() {
    
   printf("\n");
 
+  FILE *out = fopen("./data/insertion_time.csv", "w");
+
   struct timespec start, end;
   for (int i = 0; i < sizeof(words)/sizeof(words[0]); i++){
     clock_gettime(CLOCK_MONOTONIC, &start);
@@ -27,7 +29,9 @@ int main() {
     double durationInSec = (double)duration/1000000000;
     printf("Added element: %s\n", words[i]);
     printf("Estimated time: %.9f\n", durationInSec);
+    fprintf(out, "%d, %.9f\n",i+1, durationInSec);
   }
+  fclose(out);
   printf("\n");
 
   printf("False positive possibility is %f\%\n", bloom_probability(size, i));
