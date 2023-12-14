@@ -13,6 +13,6 @@ def write_to_file(words, filename):
         for word in words:
             file.write(word + '\n')
 
-words = generate_words(50000, 6)
+words = generate_words(5000000, 6)
 
 write_to_file(words, 'out')

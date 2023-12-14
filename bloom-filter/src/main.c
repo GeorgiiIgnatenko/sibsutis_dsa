@@ -16,7 +16,7 @@ int main() {
   printf("\n");
 
 
-  printf("False positive possibility is %f\%\n", bloom_probability(size, c));
+  printf("False positive possibility is %f%%\n", bloom_probability(size, c));
 
   char* checkupWords[] = {"test", "test2", "test3", "sda", "boom", "bones"};
   for (int i = 0; i < sizeof(checkupWords)/sizeof(checkupWords[0]); i++){

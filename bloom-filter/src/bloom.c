@@ -2,21 +2,19 @@
 
 #define hash_count 4
 
-void bloom_init() {};
+void bloom_insert(bool *bitarray, int arrSize, char *key) { 
+  int a = hash1(key, arrSize);
+  int b = hash2(key, arrSize);
+  int c = hash3(key, arrSize);
+  int d = hash4(key, arrSize);
 
-void bloom_insert(bool *bitarray, int arrSize, char *key) {
-  if (bloom_lookup(bitarray, arrSize, key))
-    printf("%s is Probably already present\n", key);
-  else{
-    int a = hash1(key, arrSize);
-    int b = hash2(key, arrSize);
-    int c = hash3(key, arrSize);
-    int d = hash4(key, arrSize);
-
-   bitarray[a] = true;
-   bitarray[b] = true;
-   bitarray[c] = true;
-   bitarray[d] = true;
+  if (bitarray[a] && bitarray[b] && bitarray[c] && bitarray[d]){
+    return;
+  }else { 
+    bitarray[a] = true;
+    bitarray[b] = true;
+    bitarray[c] = true;
+    bitarray[d] = true;
   }
 };
 
